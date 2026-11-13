@@ -326,6 +326,443 @@ h2{color:#38634e}
 #scrTheory .eyebrow,#scrStart .eyebrow{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;background:linear-gradient(135deg,#fff1cf,#f6dcae);color:#654d39;border:1px solid #e5c58d;box-shadow:0 3px 9px rgba(90,67,43,.1)}
 #scrTheory h1,#scrStart h1{text-shadow:0 2px 0 #fff4dc,0 5px 14px rgba(78,103,74,.18);color:#355c4b}
 @media(max-width:600px){.fairytale-scene{border-radius:16px;margin-bottom:17px}.fairytale-scene svg{min-height:130px}.fairytale-scene:after{font-size:12px;right:10px;top:8px}}
+
+/* ===== РОЗГОРНУТА КАЗКОВА ПРИГОДА ===== */
+:root{--bg:#edf0da;--panel:#fff8e8;--ink:#2d4238;--muted:#667968;--line:#d9c99f;--sys:#367b63;--sys-bg:#e2f1df;--app:#b97837;--app-bg:#f7e6c6;--ins:#78609a;--ins-bg:#eee5f5;--bar:#244c40}
+body{background:radial-gradient(ellipse at 10% 0%,rgba(255,222,151,.62),transparent 32%),radial-gradient(ellipse at 92% 12%,rgba(173,207,157,.54),transparent 34%),linear-gradient(180deg,#e8efdb 0%,#f7edd6 48%,#dce8d3 100%);background-attachment:fixed}
+.taskbar{background:linear-gradient(100deg,#1e4a3c,#356c50 55%,#795b3b);border-bottom:3px solid #d7bd7e;box-shadow:0 5px 18px #233d2f35}
+.start{background:#f2ce78;color:#594324;border-radius:999px;box-shadow:0 3px 0 #be9149}
+main{max-width:1160px;padding-top:28px}
+.win{border:3px solid #d7c18b;border-radius:30px;background:rgba(255,249,233,.97);box-shadow:0 18px 42px #263e3025,0 5px 0 #c4ae78}
+.win:before{content:"✦  ✧  ✦";color:#c99b4d;letter-spacing:.55em;top:14px}
+.win-head{background:linear-gradient(90deg,#e6edce,#f7e7c5 65%,#f2dfcd);border-bottom:2px solid #d9c99f;color:#63735d;border-radius:25px 25px 0 0}
+.win-body{gap:22px;padding:clamp(20px,4vw,40px)}
+h1{color:#2d5e49}h2{color:#426c50}.eyebrow{color:#966b35;font-weight:900}
+.btn{background:linear-gradient(135deg,#4c9674,#2e634e);border-radius:999px;box-shadow:0 4px 0 #1e503e}
+.btn.go{background:linear-gradient(135deg,#e6b85f,#c27a35);box-shadow:0 4px 0 #92572b}
+.btn.ghost{background:#fff9e9;color:#4e6652;border:2px solid #d4c59e;box-shadow:0 3px 0 #d4c6a4}
+.bubble{background:linear-gradient(145deg,#f4eafa,#fff5df);border:2px solid #b59cc7;color:#3f5547;box-shadow:0 6px 16px #5c4a6a16}
+.bubble b{color:#79559b}.bot{filter:drop-shadow(0 6px 4px #334a3c2a)}
+.th{background:linear-gradient(145deg,#fffdf3,#f1eedc);border:2px solid #dfd2ad;border-radius:20px;box-shadow:0 4px 0 #e4d9bc}
+.th h3{color:#386d51}.form input,.form select{background:#fffdf5;border:2px solid #d8c99f;border-radius:14px}.foot{color:#58715d}
+
+/* обкладинка гри */
+#scrStart .win-body>.fairytale-scene,#scrStart .win-body>.eyebrow,#scrStart .win-body>h1{display:none}
+.storybook-cover{position:relative;min-height:350px;border-radius:26px;overflow:hidden;border:4px solid #e9d19a;box-shadow:0 12px 30px #233f3440,inset 0 0 0 2px #fff9d5;isolation:isolate;background:#496b67}
+.cover-landscape{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cover-copy{position:absolute;left:4.5%;top:9%;z-index:2;max-width:53%;color:#fff4d0;text-shadow:0 3px 5px #223b35a8}
+.cover-ribbon{display:inline-block;background:#f1d28b;color:#674b30;font-size:.76rem;font-weight:1000;letter-spacing:.13em;padding:7px 17px;border-radius:3px 16px 3px 16px;box-shadow:0 3px 0 #b17e45}
+.cover-title{font-family:Georgia,serif;font-size:clamp(2.2rem,5vw,4.8rem);font-weight:900;line-height:.98;margin-top:17px;letter-spacing:-.04em}
+.cover-title strong{display:block;color:#ffe59c;font-size:1.18em;font-style:italic}
+.cover-subtitle{font-family:Georgia,serif;font-size:clamp(1.1rem,2.3vw,2rem);font-weight:700;margin-top:12px;color:#fff4dc}
+.cover-seal{display:inline-flex;gap:9px;align-items:center;background:#264e43d9;border:1px solid #e9ce88;border-radius:999px;padding:9px 15px;margin-top:18px;font-size:.86rem;font-weight:900}
+.cover-seal span{color:#ffd978}
+.cover-bottom-note{position:absolute;right:3%;bottom:14px;z-index:3;color:#fff5d6;font-family:Georgia,serif;font-style:italic;font-size:1.05rem;text-shadow:0 2px 5px #1d3c32}
+#scrStart .say{align-items:center}#scrStart .say .bubble{font-size:1.04rem;line-height:1.6}
+
+/* індивідуальна ілюстрована сцена для кожного рівня */
+.level-scene{height:190px;position:relative;overflow:hidden;isolation:isolate;border-radius:23px;border:3px solid #e8d39e;box-shadow:0 8px 20px #425a3a25;background:linear-gradient(180deg,var(--scene-sky),#f4d8a1 74%);min-height:170px}
+.level-scene:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 78% 23%,var(--scene-glow) 0 5%,transparent 5.5%),linear-gradient(180deg,transparent 0 56%,#c2ae76 56% 100%);opacity:.9}
+.scene-sun{position:absolute;right:13%;top:16px;width:48px;height:48px;border-radius:50%;background:var(--scene-glow);box-shadow:0 0 28px var(--scene-glow)}
+.scene-moon{position:absolute;right:14%;top:18px;width:45px;height:45px;border-radius:50%;background:#fff1bd;opacity:.75;box-shadow:0 0 20px #fff0b0;display:none}
+.scene-hill{position:absolute;bottom:0;left:-6%;width:112%;border-radius:50% 50% 0 0}
+.hill-back{height:90px;background:var(--scene-hills);opacity:.62;bottom:23px}
+.hill-front{height:72px;background:linear-gradient(180deg,#81a56e,#426b51)}
+.scene-tree{position:absolute;bottom:33px;font-size:3.5rem;filter:drop-shadow(0 4px 2px #314b352b)}
+.tree-a{left:3%}.tree-b{right:4%;font-size:4rem}
+.scene-landmark{position:absolute;z-index:2;left:50%;bottom:23px;transform:translateX(-50%);font-size:clamp(5rem,12vw,8rem);line-height:1;filter:drop-shadow(0 8px 4px #2e483b42);animation:landmarkFloat 3.2s ease-in-out infinite}
+@keyframes landmarkFloat{0%,100%{transform:translate(-50%,0) rotate(-2deg)}50%{transform:translate(-50%,-7px) rotate(2deg)}}
+.scene-fireflies{position:absolute;right:17%;bottom:34px;z-index:2;color:#fff2bf;font-size:1.05rem;letter-spacing:.5em;text-shadow:0 0 10px #fff3b6}
+.scene-sign{position:absolute;z-index:3;top:17px;left:20px;display:grid;gap:2px;max-width:55%;padding:9px 15px 10px;border:2px solid #ead29c;border-radius:14px 14px 14px 4px;background:#fff8e5e8;box-shadow:0 4px 10px #29463625}
+.scene-sign span{font-family:var(--mono);font-size:.65rem;font-weight:900;letter-spacing:.12em;color:#a57438}
+.scene-sign b{font-family:Georgia,serif;font-size:1.15rem;color:#365b46}.scene-sign small{font-size:.76rem;color:#687967}
+.scene-ground{position:absolute;bottom:0;left:0;right:0;height:23px;background:linear-gradient(90deg,#386b4d,#78a567,#386b4d);z-index:1}
+.level-scene[data-level="3"] .scene-moon,.level-scene[data-level="8"] .scene-moon,.level-scene[data-level="10"] .scene-moon{display:block}
+.level-scene[data-level="3"] .scene-sun,.level-scene[data-level="8"] .scene-sun,.level-scene[data-level="10"] .scene-sun{display:none}
+.level-scene[data-level="3"] .hill-front,.level-scene[data-level="8"] .hill-front{background:linear-gradient(180deg,#65776d,#344d4b)}
+.level-scene[data-level="9"] .scene-landmark{font-size:7rem}
+
+/* мапа зі звивистою стежкою та 10 окремими локаціями */
+.map-shell{position:relative;overflow:hidden;border-radius:25px;border:3px solid #d7c18b;padding:16px 18px 12px;background:linear-gradient(180deg,#dcebc9,#edf0ce 54%,#d5e7c5);box-shadow:inset 0 0 0 2px #fff9db,0 7px 18px #314f3420}
+.map-shell:before,.map-shell:after{content:"";position:absolute;border-radius:50%;background:#79a56b;opacity:.23;pointer-events:none}
+.map-shell:before{width:180px;height:90px;left:-50px;top:40px}.map-shell:after{width:190px;height:100px;right:-45px;bottom:4px}
+.map-heading{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;padding:0 6px 8px;color:#385d45}
+.map-heading span{font-family:Georgia,serif;font-size:1.35rem;font-weight:900}.map-heading small{font-size:.8rem;color:#627861}
+.map-trail{position:absolute;inset:30px 0 10px;width:100%;height:calc(100% - 40px);z-index:0;opacity:.95}
+#qnav.qnav{position:relative;z-index:1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:repeat(2,minmax(92px,auto));gap:10px 6px;padding:5px 0}
+#qnav button{position:relative;width:100%;height:100%;min-height:88px;border:0;border-radius:18px;background:transparent;box-shadow:none;color:#365b45;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:4px;transition:transform .18s,filter .18s}
+#qnav button:hover{transform:translateY(-5px) scale(1.04);filter:drop-shadow(0 5px 4px #294b3340)}
+#qnav button .map-node-art{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:linear-gradient(145deg,#fff7d9,#e1d19e);border:3px solid #b99152;box-shadow:0 4px 0 #9e7746,0 7px 12px #29463327;font-size:1.75rem;line-height:1}
+#qnav button .map-node-label{font-size:.69rem;font-weight:1000;line-height:1.1;max-width:100%;text-align:center;text-wrap:balance;color:#365540}
+#qnav button .map-node-number{position:absolute;top:1px;right:calc(50% - 37px);width:21px;height:21px;border-radius:50%;display:grid;place-items:center;background:#72553a;color:#fff4d8;border:2px solid #ffedbe;font:800 .68rem var(--mono)}
+#qnav button.cur{background:transparent;color:#294e3b}
+#qnav button.cur .map-node-art{background:linear-gradient(145deg,#fff2a8,#e4a94d);border-color:#fff3b4;box-shadow:0 0 0 5px #f6dc8b70,0 5px 0 #ae7a39;transform:scale(1.12)}
+#qnav button.cur .map-node-number{background:#c2732f}
+#qnav button.ans .map-node-art{background:linear-gradient(145deg,#e7f6d9,#9fc889);border-color:#6f9b64}
+#qnav button.ok .map-node-art{background:linear-gradient(145deg,#fff0a3,#e7b348);border-color:#d39b43}
+#qnav button.ok:after{content:"🔑";position:absolute;top:-2px;left:calc(50% + 19px);font-size:.95rem}
+#qnav button.mid .map-node-art{background:linear-gradient(145deg,#fff0c2,#eacb84)}
+#qnav button.bad .map-node-art{background:linear-gradient(145deg,#f8d5c9,#d98c7a)}
+.map-legend{position:relative;z-index:2;display:flex;justify-content:center;gap:18px;flex-wrap:wrap;border-top:1px solid #b9cba7;padding-top:9px;color:#59705a;font-size:.75rem;font-weight:800}
+.map-tools{justify-content:flex-end}
+#scrTask .qhead{margin-top:3px}#scrTask #qtitle{font-family:Georgia,serif;font-size:clamp(1.25rem,3vw,1.8rem)}
+#qbox{background:linear-gradient(145deg,#fffdf5,#f4edda);border:2px solid #e0d1aa;border-radius:23px;padding:clamp(14px,2.8vw,24px);box-shadow:0 5px 0 #e5d8b9,0 10px 18px #39513b10}
+#qbox .opt{background:linear-gradient(145deg,#fffef8,#f4ead4);border:2px solid #d9c69c;border-radius:15px;box-shadow:0 4px 0 #d8c7a4;color:#425a45}
+#qbox .opt:hover{border-color:#6f9c70;background:#f4f8e9}
+#qbox .opt[aria-pressed=true]{background:#e3f1d9;border-color:#5d9766}
+#qbox .chip{border:2px solid #c89d5f;background:linear-gradient(145deg,#fff4d8,#edd49e);color:#614b2f;box-shadow:0 3px 0 #b18a54}
+#qbox .chip.dragging{opacity:.45;transform:scale(.96)}
+#qbox .pool{border:2px dashed #c6a76c;background:#f8edcf;border-radius:18px;min-height:70px}
+#qbox .folders{gap:14px}
+#qbox .folder{position:relative;min-height:150px;border:3px solid #b88c53;border-radius:18px 18px 13px 13px;background:linear-gradient(145deg,#fff3d5,#e8d5ad);box-shadow:0 5px 0 #ae8350;text-align:left;padding:18px 12px 12px}
+#qbox .folder:before{content:"";position:absolute;top:-13px;left:12px;width:70px;height:16px;border:3px solid #b88c53;border-bottom:0;border-radius:10px 10px 0 0;background:#e8d5ad}
+#qbox .folder h3{font-family:Georgia,serif;color:#654d30;font-size:1.1rem}
+#qbox .folder.ready{border-color:#d49d45;background:linear-gradient(145deg,#fff4ca,#e9c47c)}
+#qbox .folder.drop-over{outline:4px dashed #5f9966;outline-offset:3px;transform:translateY(-3px)}
+#qbox .cls-row{background:#fff9e9;border:2px solid #e1d0a7;border-radius:16px}
+#qbox .seg button{background:#fff8e7;border:2px solid #d9c99f;border-radius:10px;color:#47634e}
+#qbox .seg button[aria-pressed=true]{background:#39785c;color:#fff}
+#qbox .tree{background:#e9e7cf;border:2px solid #c4bd91;border-radius:16px;color:#465d49}
+#qbox .pathline{background:#e1efda;border-color:#79a777;color:#365c46}
+#qbox .exp{border:3px solid #bda16e;border-radius:18px;background:#fbf4e3;box-shadow:0 5px 0 #d7c39a}
+#qbox .exp-tool{background:#e9e1c9}
+#qbox .exp-tool button,#qbox .exp-addr button{background:#fff7e6;border:1px solid #ccb98f;color:#465c48}
+#qbox .exp-area{background:linear-gradient(145deg,#fffdf5,#f2eedf);min-height:220px}
+#qbox .item.sel{background:#dcebd2;border:2px solid #79a678;border-radius:12px}
+#qbox .olist{background:#fff7e4;border:2px dashed #d6bf8b;padding:14px 14px 14px 42px;border-radius:16px}
+
+/* скриня та персональний диплом у фіналі */
+.storybook-finale{position:relative;border:3px solid #d6b66f;border-radius:24px;overflow:hidden;background:#314f56;box-shadow:0 8px 0 #c4a66a,0 14px 25px #31463225}
+.storybook-finale svg{display:block;width:100%;height:auto;max-height:310px}
+.finale-caption{position:absolute;left:3%;top:10%;display:grid;gap:4px;max-width:34%;padding:12px 16px;border-radius:14px;background:#fff4d9e8;border:2px solid #e4c887;box-shadow:0 5px 15px #1d352b35}
+.finale-caption span{font-size:1.8rem}.finale-caption b{font-family:Georgia,serif;font-size:1.2rem;color:#385b44}.finale-caption small{color:#68735b}
+.diploma{position:relative;overflow:hidden;text-align:center;padding:24px clamp(16px,4vw,44px) 20px;border:8px double #b88a45;border-radius:20px;background:radial-gradient(circle at 50% 35%,#fffdf1,#f6e8be 78%);box-shadow:inset 0 0 0 5px #fff9df,0 7px 0 #d0b77e;color:#5b4a31}
+.diploma:before,.diploma:after{content:"❧";position:absolute;top:38%;font-size:4rem;color:#c7a15c;opacity:.45}.diploma:before{left:12px}.diploma:after{right:12px;transform:scaleX(-1)}
+.diploma-ornament{color:#bc8b43;letter-spacing:.7em;font-size:1.1rem}
+.diploma-kicker{font-size:.7rem;letter-spacing:.18em;font-weight:1000;color:#9a6f36;margin-top:9px}
+.diploma h2{font-family:Georgia,serif;font-size:clamp(1.5rem,4vw,2.5rem);color:#76502e;margin:8px 0}
+.diploma-intro{margin-top:12px;color:#77664b}
+.diploma-name{font-family:Georgia,serif;font-size:clamp(1.3rem,3.5vw,2rem);font-weight:900;color:#3e694d;border-bottom:2px solid #c8a56c;padding:7px 12px 10px;margin:8px auto 12px;max-width:700px}
+.diploma p{margin:8px auto;max-width:65ch}
+.diploma-bottom{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-top:20px;color:#7c633b}
+.diploma-bottom b{color:#365f48}.diploma-seal{position:absolute;right:8%;bottom:14px;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#d6ac5f;border:4px double #fff0bc;font-size:1.5rem;box-shadow:0 3px 7px #5b432b30}
+.diploma-date{margin-top:16px;font-size:.8rem;color:#8a744f}
+@media(max-width:720px){
+ .storybook-cover{min-height:270px}.cover-copy{left:4%;top:7%;max-width:61%}
+ .cover-title{font-size:clamp(1.9rem,7vw,3.1rem)}.cover-ribbon{font-size:.58rem;padding:6px 9px}
+ .cover-seal{font-size:.68rem;padding:6px 9px;margin-top:10px}.cover-bottom-note{font-size:.75rem;right:4%;bottom:8px}
+ .level-scene{height:165px}.scene-sign{left:10px;top:10px;max-width:62%;padding:7px 10px}
+ .scene-sign b{font-size:.96rem}.scene-sign small{font-size:.65rem}.scene-landmark{font-size:5.3rem;left:68%;bottom:22px}.scene-tree{font-size:2.6rem}
+ .map-shell{padding:10px 8px 8px}#qnav.qnav{grid-template-rows:repeat(2,minmax(94px,auto));gap:8px 2px}
+ #qnav button{min-height:88px}#qnav button .map-node-art{width:42px;height:42px;font-size:1.45rem}
+ #qnav button .map-node-label{font-size:.58rem}#qnav button .map-node-number{right:calc(50% - 30px);width:18px;height:18px;font-size:.6rem}
+ .map-heading span{font-size:1.1rem}.map-heading small{font-size:.7rem}.map-legend{font-size:.62rem;gap:9px}
+ .finale-caption{position:relative;left:auto;top:auto;max-width:none;border:0;border-bottom:2px solid #e4c887;border-radius:0;background:#fff4d9;padding:10px 14px;text-align:center}
+ .diploma:before,.diploma:after{font-size:2.4rem;top:48%}.diploma-seal{position:static;margin:10px auto 0}
+}
+@media(max-width:420px){
+ .cover-copy{max-width:68%}.cover-title{font-size:1.8rem}.cover-subtitle{font-size:.98rem}
+ .cover-seal{display:flex;width:max-content;max-width:100%;font-size:.58rem}
+ .map-node-label{display:none}#qnav.qnav{grid-template-rows:repeat(2,minmax(70px,auto))}#qnav button{min-height:70px}
+}
+@media(prefers-reduced-motion:reduce){.scene-landmark{animation:none}}
+
+
+/* ===== РОЗГОРНУТА КАЗКОВА ПРИГОДА ===== */
+:root{--bg:#edf0da;--panel:#fff8e8;--ink:#2d4238;--muted:#667968;--line:#d9c99f;--sys:#367b63;--sys-bg:#e2f1df;--app:#b97837;--app-bg:#f7e6c6;--ins:#78609a;--ins-bg:#eee5f5;--bar:#244c40}
+body{background:radial-gradient(ellipse at 10% 0%,rgba(255,222,151,.62),transparent 32%),radial-gradient(ellipse at 92% 12%,rgba(173,207,157,.54),transparent 34%),linear-gradient(180deg,#e8efdb 0%,#f7edd6 48%,#dce8d3 100%);background-attachment:fixed}
+.taskbar{background:linear-gradient(100deg,#1e4a3c,#356c50 55%,#795b3b);border-bottom:3px solid #d7bd7e;box-shadow:0 5px 18px #233d2f35}
+.start{background:#f2ce78;color:#594324;border-radius:999px;box-shadow:0 3px 0 #be9149}
+main{max-width:1160px;padding-top:28px}
+.win{border:3px solid #d7c18b;border-radius:30px;background:rgba(255,249,233,.97);box-shadow:0 18px 42px #263e3025,0 5px 0 #c4ae78}
+.win:before{content:"✦  ✧  ✦";color:#c99b4d;letter-spacing:.55em;top:14px}
+.win-head{background:linear-gradient(90deg,#e6edce,#f7e7c5 65%,#f2dfcd);border-bottom:2px solid #d9c99f;color:#63735d;border-radius:25px 25px 0 0}
+.win-body{gap:22px;padding:clamp(20px,4vw,40px)}
+h1{color:#2d5e49}h2{color:#426c50}.eyebrow{color:#966b35;font-weight:900}
+.btn{background:linear-gradient(135deg,#4c9674,#2e634e);border-radius:999px;box-shadow:0 4px 0 #1e503e}
+.btn.go{background:linear-gradient(135deg,#e6b85f,#c27a35);box-shadow:0 4px 0 #92572b}
+.btn.ghost{background:#fff9e9;color:#4e6652;border:2px solid #d4c59e;box-shadow:0 3px 0 #d4c6a4}
+.bubble{background:linear-gradient(145deg,#f4eafa,#fff5df);border:2px solid #b59cc7;color:#3f5547;box-shadow:0 6px 16px #5c4a6a16}
+.bubble b{color:#79559b}.bot{filter:drop-shadow(0 6px 4px #334a3c2a)}
+.th{background:linear-gradient(145deg,#fffdf3,#f1eedc);border:2px solid #dfd2ad;border-radius:20px;box-shadow:0 4px 0 #e4d9bc}
+.th h3{color:#386d51}.form input,.form select{background:#fffdf5;border:2px solid #d8c99f;border-radius:14px}.foot{color:#58715d}
+
+/* обкладинка гри */
+#scrStart .win-body>.fairytale-scene,#scrStart .win-body>.eyebrow,#scrStart .win-body>h1{display:none}
+.storybook-cover{position:relative;min-height:350px;border-radius:26px;overflow:hidden;border:4px solid #e9d19a;box-shadow:0 12px 30px #233f3440,inset 0 0 0 2px #fff9d5;isolation:isolate;background:#496b67}
+.cover-landscape{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cover-copy{position:absolute;left:4.5%;top:9%;z-index:2;max-width:53%;color:#fff4d0;text-shadow:0 3px 5px #223b35a8}
+.cover-ribbon{display:inline-block;background:#f1d28b;color:#674b30;font-size:.76rem;font-weight:1000;letter-spacing:.13em;padding:7px 17px;border-radius:3px 16px 3px 16px;box-shadow:0 3px 0 #b17e45}
+.cover-title{font-family:Georgia,serif;font-size:clamp(2.2rem,5vw,4.8rem);font-weight:900;line-height:.98;margin-top:17px;letter-spacing:-.04em}
+.cover-title strong{display:block;color:#ffe59c;font-size:1.18em;font-style:italic}
+.cover-subtitle{font-family:Georgia,serif;font-size:clamp(1.1rem,2.3vw,2rem);font-weight:700;margin-top:12px;color:#fff4dc}
+.cover-seal{display:inline-flex;gap:9px;align-items:center;background:#264e43d9;border:1px solid #e9ce88;border-radius:999px;padding:9px 15px;margin-top:18px;font-size:.86rem;font-weight:900}
+.cover-seal span{color:#ffd978}
+.cover-bottom-note{position:absolute;right:3%;bottom:14px;z-index:3;color:#fff5d6;font-family:Georgia,serif;font-style:italic;font-size:1.05rem;text-shadow:0 2px 5px #1d3c32}
+#scrStart .say{align-items:center}#scrStart .say .bubble{font-size:1.04rem;line-height:1.6}
+
+/* індивідуальна ілюстрована сцена для кожного рівня */
+.level-scene{height:190px;position:relative;overflow:hidden;isolation:isolate;border-radius:23px;border:3px solid #e8d39e;box-shadow:0 8px 20px #425a3a25;background:linear-gradient(180deg,var(--scene-sky),#f4d8a1 74%);min-height:170px}
+.level-scene:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 78% 23%,var(--scene-glow) 0 5%,transparent 5.5%),linear-gradient(180deg,transparent 0 56%,#c2ae76 56% 100%);opacity:.9}
+.scene-sun{position:absolute;right:13%;top:16px;width:48px;height:48px;border-radius:50%;background:var(--scene-glow);box-shadow:0 0 28px var(--scene-glow)}
+.scene-moon{position:absolute;right:14%;top:18px;width:45px;height:45px;border-radius:50%;background:#fff1bd;opacity:.75;box-shadow:0 0 20px #fff0b0;display:none}
+.scene-hill{position:absolute;bottom:0;left:-6%;width:112%;border-radius:50% 50% 0 0}
+.hill-back{height:90px;background:var(--scene-hills);opacity:.62;bottom:23px}
+.hill-front{height:72px;background:linear-gradient(180deg,#81a56e,#426b51)}
+.scene-tree{position:absolute;bottom:33px;font-size:3.5rem;filter:drop-shadow(0 4px 2px #314b352b)}
+.tree-a{left:3%}.tree-b{right:4%;font-size:4rem}
+.scene-landmark{position:absolute;z-index:2;left:50%;bottom:23px;transform:translateX(-50%);font-size:clamp(5rem,12vw,8rem);line-height:1;filter:drop-shadow(0 8px 4px #2e483b42);animation:landmarkFloat 3.2s ease-in-out infinite}
+@keyframes landmarkFloat{0%,100%{transform:translate(-50%,0) rotate(-2deg)}50%{transform:translate(-50%,-7px) rotate(2deg)}}
+.scene-fireflies{position:absolute;right:17%;bottom:34px;z-index:2;color:#fff2bf;font-size:1.05rem;letter-spacing:.5em;text-shadow:0 0 10px #fff3b6}
+.scene-sign{position:absolute;z-index:3;top:17px;left:20px;display:grid;gap:2px;max-width:55%;padding:9px 15px 10px;border:2px solid #ead29c;border-radius:14px 14px 14px 4px;background:#fff8e5e8;box-shadow:0 4px 10px #29463625}
+.scene-sign span{font-family:var(--mono);font-size:.65rem;font-weight:900;letter-spacing:.12em;color:#a57438}
+.scene-sign b{font-family:Georgia,serif;font-size:1.15rem;color:#365b46}.scene-sign small{font-size:.76rem;color:#687967}
+.scene-ground{position:absolute;bottom:0;left:0;right:0;height:23px;background:linear-gradient(90deg,#386b4d,#78a567,#386b4d);z-index:1}
+.level-scene[data-level="3"] .scene-moon,.level-scene[data-level="8"] .scene-moon,.level-scene[data-level="10"] .scene-moon{display:block}
+.level-scene[data-level="3"] .scene-sun,.level-scene[data-level="8"] .scene-sun,.level-scene[data-level="10"] .scene-sun{display:none}
+.level-scene[data-level="3"] .hill-front,.level-scene[data-level="8"] .hill-front{background:linear-gradient(180deg,#65776d,#344d4b)}
+.level-scene[data-level="9"] .scene-landmark{font-size:7rem}
+
+/* мапа зі звивистою стежкою та 10 окремими локаціями */
+.map-shell{position:relative;overflow:hidden;border-radius:25px;border:3px solid #d7c18b;padding:16px 18px 12px;background:linear-gradient(180deg,#dcebc9,#edf0ce 54%,#d5e7c5);box-shadow:inset 0 0 0 2px #fff9db,0 7px 18px #314f3420}
+.map-shell:before,.map-shell:after{content:"";position:absolute;border-radius:50%;background:#79a56b;opacity:.23;pointer-events:none}
+.map-shell:before{width:180px;height:90px;left:-50px;top:40px}.map-shell:after{width:190px;height:100px;right:-45px;bottom:4px}
+.map-heading{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;padding:0 6px 8px;color:#385d45}
+.map-heading span{font-family:Georgia,serif;font-size:1.35rem;font-weight:900}.map-heading small{font-size:.8rem;color:#627861}
+.map-trail{position:absolute;inset:30px 0 10px;width:100%;height:calc(100% - 40px);z-index:0;opacity:.95}
+#qnav.qnav{position:relative;z-index:1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:repeat(2,minmax(92px,auto));gap:10px 6px;padding:5px 0}
+#qnav button{position:relative;width:100%;height:100%;min-height:88px;border:0;border-radius:18px;background:transparent;box-shadow:none;color:#365b45;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:4px;transition:transform .18s,filter .18s}
+#qnav button:hover{transform:translateY(-5px) scale(1.04);filter:drop-shadow(0 5px 4px #294b3340)}
+#qnav button .map-node-art{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:linear-gradient(145deg,#fff7d9,#e1d19e);border:3px solid #b99152;box-shadow:0 4px 0 #9e7746,0 7px 12px #29463327;font-size:1.75rem;line-height:1}
+#qnav button .map-node-label{font-size:.69rem;font-weight:1000;line-height:1.1;max-width:100%;text-align:center;text-wrap:balance;color:#365540}
+#qnav button .map-node-number{position:absolute;top:1px;right:calc(50% - 37px);width:21px;height:21px;border-radius:50%;display:grid;place-items:center;background:#72553a;color:#fff4d8;border:2px solid #ffedbe;font:800 .68rem var(--mono)}
+#qnav button.cur{background:transparent;color:#294e3b}
+#qnav button.cur .map-node-art{background:linear-gradient(145deg,#fff2a8,#e4a94d);border-color:#fff3b4;box-shadow:0 0 0 5px #f6dc8b70,0 5px 0 #ae7a39;transform:scale(1.12)}
+#qnav button.cur .map-node-number{background:#c2732f}
+#qnav button.ans .map-node-art{background:linear-gradient(145deg,#e7f6d9,#9fc889);border-color:#6f9b64}
+#qnav button.ok .map-node-art{background:linear-gradient(145deg,#fff0a3,#e7b348);border-color:#d39b43}
+#qnav button.ok:after{content:"🔑";position:absolute;top:-2px;left:calc(50% + 19px);font-size:.95rem}
+#qnav button.mid .map-node-art{background:linear-gradient(145deg,#fff0c2,#eacb84)}
+#qnav button.bad .map-node-art{background:linear-gradient(145deg,#f8d5c9,#d98c7a)}
+.map-legend{position:relative;z-index:2;display:flex;justify-content:center;gap:18px;flex-wrap:wrap;border-top:1px solid #b9cba7;padding-top:9px;color:#59705a;font-size:.75rem;font-weight:800}
+.map-tools{justify-content:flex-end}
+#scrTask .qhead{margin-top:3px}#scrTask #qtitle{font-family:Georgia,serif;font-size:clamp(1.25rem,3vw,1.8rem)}
+#qbox{background:linear-gradient(145deg,#fffdf5,#f4edda);border:2px solid #e0d1aa;border-radius:23px;padding:clamp(14px,2.8vw,24px);box-shadow:0 5px 0 #e5d8b9,0 10px 18px #39513b10}
+#qbox .opt{background:linear-gradient(145deg,#fffef8,#f4ead4);border:2px solid #d9c69c;border-radius:15px;box-shadow:0 4px 0 #d8c7a4;color:#425a45}
+#qbox .opt:hover{border-color:#6f9c70;background:#f4f8e9}
+#qbox .opt[aria-pressed=true]{background:#e3f1d9;border-color:#5d9766}
+#qbox .chip{border:2px solid #c89d5f;background:linear-gradient(145deg,#fff4d8,#edd49e);color:#614b2f;box-shadow:0 3px 0 #b18a54}
+#qbox .chip.dragging{opacity:.45;transform:scale(.96)}
+#qbox .pool{border:2px dashed #c6a76c;background:#f8edcf;border-radius:18px;min-height:70px}
+#qbox .folders{gap:14px}
+#qbox .folder{position:relative;min-height:150px;border:3px solid #b88c53;border-radius:18px 18px 13px 13px;background:linear-gradient(145deg,#fff3d5,#e8d5ad);box-shadow:0 5px 0 #ae8350;text-align:left;padding:18px 12px 12px}
+#qbox .folder:before{content:"";position:absolute;top:-13px;left:12px;width:70px;height:16px;border:3px solid #b88c53;border-bottom:0;border-radius:10px 10px 0 0;background:#e8d5ad}
+#qbox .folder h3{font-family:Georgia,serif;color:#654d30;font-size:1.1rem}
+#qbox .folder.ready{border-color:#d49d45;background:linear-gradient(145deg,#fff4ca,#e9c47c)}
+#qbox .folder.drop-over{outline:4px dashed #5f9966;outline-offset:3px;transform:translateY(-3px)}
+#qbox .cls-row{background:#fff9e9;border:2px solid #e1d0a7;border-radius:16px}
+#qbox .seg button{background:#fff8e7;border:2px solid #d9c99f;border-radius:10px;color:#47634e}
+#qbox .seg button[aria-pressed=true]{background:#39785c;color:#fff}
+#qbox .tree{background:#e9e7cf;border:2px solid #c4bd91;border-radius:16px;color:#465d49}
+#qbox .pathline{background:#e1efda;border-color:#79a777;color:#365c46}
+#qbox .exp{border:3px solid #bda16e;border-radius:18px;background:#fbf4e3;box-shadow:0 5px 0 #d7c39a}
+#qbox .exp-tool{background:#e9e1c9}
+#qbox .exp-tool button,#qbox .exp-addr button{background:#fff7e6;border:1px solid #ccb98f;color:#465c48}
+#qbox .exp-area{background:linear-gradient(145deg,#fffdf5,#f2eedf);min-height:220px}
+#qbox .item.sel{background:#dcebd2;border:2px solid #79a678;border-radius:12px}
+#qbox .olist{background:#fff7e4;border:2px dashed #d6bf8b;padding:14px 14px 14px 42px;border-radius:16px}
+
+/* скриня та персональний диплом у фіналі */
+.storybook-finale{position:relative;border:3px solid #d6b66f;border-radius:24px;overflow:hidden;background:#314f56;box-shadow:0 8px 0 #c4a66a,0 14px 25px #31463225}
+.storybook-finale svg{display:block;width:100%;height:auto;max-height:310px}
+.finale-caption{position:absolute;left:3%;top:10%;display:grid;gap:4px;max-width:34%;padding:12px 16px;border-radius:14px;background:#fff4d9e8;border:2px solid #e4c887;box-shadow:0 5px 15px #1d352b35}
+.finale-caption span{font-size:1.8rem}.finale-caption b{font-family:Georgia,serif;font-size:1.2rem;color:#385b44}.finale-caption small{color:#68735b}
+.diploma{position:relative;overflow:hidden;text-align:center;padding:24px clamp(16px,4vw,44px) 20px;border:8px double #b88a45;border-radius:20px;background:radial-gradient(circle at 50% 35%,#fffdf1,#f6e8be 78%);box-shadow:inset 0 0 0 5px #fff9df,0 7px 0 #d0b77e;color:#5b4a31}
+.diploma:before,.diploma:after{content:"❧";position:absolute;top:38%;font-size:4rem;color:#c7a15c;opacity:.45}.diploma:before{left:12px}.diploma:after{right:12px;transform:scaleX(-1)}
+.diploma-ornament{color:#bc8b43;letter-spacing:.7em;font-size:1.1rem}
+.diploma-kicker{font-size:.7rem;letter-spacing:.18em;font-weight:1000;color:#9a6f36;margin-top:9px}
+.diploma h2{font-family:Georgia,serif;font-size:clamp(1.5rem,4vw,2.5rem);color:#76502e;margin:8px 0}
+.diploma-intro{margin-top:12px;color:#77664b}
+.diploma-name{font-family:Georgia,serif;font-size:clamp(1.3rem,3.5vw,2rem);font-weight:900;color:#3e694d;border-bottom:2px solid #c8a56c;padding:7px 12px 10px;margin:8px auto 12px;max-width:700px}
+.diploma p{margin:8px auto;max-width:65ch}
+.diploma-bottom{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-top:20px;color:#7c633b}
+.diploma-bottom b{color:#365f48}.diploma-seal{position:absolute;right:8%;bottom:14px;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#d6ac5f;border:4px double #fff0bc;font-size:1.5rem;box-shadow:0 3px 7px #5b432b30}
+.diploma-date{margin-top:16px;font-size:.8rem;color:#8a744f}
+@media(max-width:720px){
+ .storybook-cover{min-height:270px}.cover-copy{left:4%;top:7%;max-width:61%}
+ .cover-title{font-size:clamp(1.9rem,7vw,3.1rem)}.cover-ribbon{font-size:.58rem;padding:6px 9px}
+ .cover-seal{font-size:.68rem;padding:6px 9px;margin-top:10px}.cover-bottom-note{font-size:.75rem;right:4%;bottom:8px}
+ .level-scene{height:165px}.scene-sign{left:10px;top:10px;max-width:62%;padding:7px 10px}
+ .scene-sign b{font-size:.96rem}.scene-sign small{font-size:.65rem}.scene-landmark{font-size:5.3rem;left:68%;bottom:22px}.scene-tree{font-size:2.6rem}
+ .map-shell{padding:10px 8px 8px}#qnav.qnav{grid-template-rows:repeat(2,minmax(94px,auto));gap:8px 2px}
+ #qnav button{min-height:88px}#qnav button .map-node-art{width:42px;height:42px;font-size:1.45rem}
+ #qnav button .map-node-label{font-size:.58rem}#qnav button .map-node-number{right:calc(50% - 30px);width:18px;height:18px;font-size:.6rem}
+ .map-heading span{font-size:1.1rem}.map-heading small{font-size:.7rem}.map-legend{font-size:.62rem;gap:9px}
+ .finale-caption{position:relative;left:auto;top:auto;max-width:none;border:0;border-bottom:2px solid #e4c887;border-radius:0;background:#fff4d9;padding:10px 14px;text-align:center}
+ .diploma:before,.diploma:after{font-size:2.4rem;top:48%}.diploma-seal{position:static;margin:10px auto 0}
+}
+@media(max-width:420px){
+ .cover-copy{max-width:68%}.cover-title{font-size:1.8rem}.cover-subtitle{font-size:.98rem}
+ .cover-seal{display:flex;width:max-content;max-width:100%;font-size:.58rem}
+ .map-node-label{display:none}#qnav.qnav{grid-template-rows:repeat(2,minmax(70px,auto))}#qnav button{min-height:70px}
+}
+@media(prefers-reduced-motion:reduce){.scene-landmark{animation:none}}
+
+.scene-landmark{width:clamp(175px,31vw,280px);height:145px;left:70%;bottom:15px;display:flex;align-items:end;justify-content:center;font-size:unset;line-height:1;filter:drop-shadow(0 8px 4px #2e483b42)}
+.landmark-svg{display:block;width:100%;height:100%;overflow:visible}
+@media(max-width:720px){.scene-landmark{width:175px;height:112px;left:72%;bottom:18px}}
+@media(max-width:420px){.scene-landmark{width:136px;height:95px;left:75%;bottom:20px}}
+
+
+/* ===== РОЗГОРНУТА КАЗКОВА ПРИГОДА ===== */
+:root{--bg:#edf0da;--panel:#fff8e8;--ink:#2d4238;--muted:#667968;--line:#d9c99f;--sys:#367b63;--sys-bg:#e2f1df;--app:#b97837;--app-bg:#f7e6c6;--ins:#78609a;--ins-bg:#eee5f5;--bar:#244c40}
+body{background:radial-gradient(ellipse at 10% 0%,rgba(255,222,151,.62),transparent 32%),radial-gradient(ellipse at 92% 12%,rgba(173,207,157,.54),transparent 34%),linear-gradient(180deg,#e8efdb 0%,#f7edd6 48%,#dce8d3 100%);background-attachment:fixed}
+.taskbar{background:linear-gradient(100deg,#1e4a3c,#356c50 55%,#795b3b);border-bottom:3px solid #d7bd7e;box-shadow:0 5px 18px #233d2f35}
+.start{background:#f2ce78;color:#594324;border-radius:999px;box-shadow:0 3px 0 #be9149}
+main{max-width:1160px;padding-top:28px}
+.win{border:3px solid #d7c18b;border-radius:30px;background:rgba(255,249,233,.97);box-shadow:0 18px 42px #263e3025,0 5px 0 #c4ae78}
+.win:before{content:"✦  ✧  ✦";color:#c99b4d;letter-spacing:.55em;top:14px}
+.win-head{background:linear-gradient(90deg,#e6edce,#f7e7c5 65%,#f2dfcd);border-bottom:2px solid #d9c99f;color:#63735d;border-radius:25px 25px 0 0}
+.win-body{gap:22px;padding:clamp(20px,4vw,40px)}
+h1{color:#2d5e49}h2{color:#426c50}.eyebrow{color:#966b35;font-weight:900}
+.btn{background:linear-gradient(135deg,#4c9674,#2e634e);border-radius:999px;box-shadow:0 4px 0 #1e503e}
+.btn.go{background:linear-gradient(135deg,#e6b85f,#c27a35);box-shadow:0 4px 0 #92572b}
+.btn.ghost{background:#fff9e9;color:#4e6652;border:2px solid #d4c59e;box-shadow:0 3px 0 #d4c6a4}
+.bubble{background:linear-gradient(145deg,#f4eafa,#fff5df);border:2px solid #b59cc7;color:#3f5547;box-shadow:0 6px 16px #5c4a6a16}
+.bubble b{color:#79559b}.bot{filter:drop-shadow(0 6px 4px #334a3c2a)}
+.th{background:linear-gradient(145deg,#fffdf3,#f1eedc);border:2px solid #dfd2ad;border-radius:20px;box-shadow:0 4px 0 #e4d9bc}
+.th h3{color:#386d51}.form input,.form select{background:#fffdf5;border:2px solid #d8c99f;border-radius:14px}.foot{color:#58715d}
+
+/* обкладинка гри */
+#scrStart .win-body>.fairytale-scene,#scrStart .win-body>.eyebrow,#scrStart .win-body>h1{display:none}
+.storybook-cover{position:relative;min-height:350px;border-radius:26px;overflow:hidden;border:4px solid #e9d19a;box-shadow:0 12px 30px #233f3440,inset 0 0 0 2px #fff9d5;isolation:isolate;background:#496b67}
+.cover-landscape{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cover-copy{position:absolute;left:4.5%;top:9%;z-index:2;max-width:53%;color:#fff4d0;text-shadow:0 3px 5px #223b35a8}
+.cover-ribbon{display:inline-block;background:#f1d28b;color:#674b30;font-size:.76rem;font-weight:1000;letter-spacing:.13em;padding:7px 17px;border-radius:3px 16px 3px 16px;box-shadow:0 3px 0 #b17e45}
+.cover-title{font-family:Georgia,serif;font-size:clamp(2.2rem,5vw,4.8rem);font-weight:900;line-height:.98;margin-top:17px;letter-spacing:-.04em}
+.cover-title strong{display:block;color:#ffe59c;font-size:1.18em;font-style:italic}
+.cover-subtitle{font-family:Georgia,serif;font-size:clamp(1.1rem,2.3vw,2rem);font-weight:700;margin-top:12px;color:#fff4dc}
+.cover-seal{display:inline-flex;gap:9px;align-items:center;background:#264e43d9;border:1px solid #e9ce88;border-radius:999px;padding:9px 15px;margin-top:18px;font-size:.86rem;font-weight:900}
+.cover-seal span{color:#ffd978}
+.cover-bottom-note{position:absolute;right:3%;bottom:14px;z-index:3;color:#fff5d6;font-family:Georgia,serif;font-style:italic;font-size:1.05rem;text-shadow:0 2px 5px #1d3c32}
+#scrStart .say{align-items:center}#scrStart .say .bubble{font-size:1.04rem;line-height:1.6}
+
+/* індивідуальна ілюстрована сцена для кожного рівня */
+.level-scene{height:190px;position:relative;overflow:hidden;isolation:isolate;border-radius:23px;border:3px solid #e8d39e;box-shadow:0 8px 20px #425a3a25;background:linear-gradient(180deg,var(--scene-sky),#f4d8a1 74%);min-height:170px}
+.level-scene:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 78% 23%,var(--scene-glow) 0 5%,transparent 5.5%),linear-gradient(180deg,transparent 0 56%,#c2ae76 56% 100%);opacity:.9}
+.scene-sun{position:absolute;right:13%;top:16px;width:48px;height:48px;border-radius:50%;background:var(--scene-glow);box-shadow:0 0 28px var(--scene-glow)}
+.scene-moon{position:absolute;right:14%;top:18px;width:45px;height:45px;border-radius:50%;background:#fff1bd;opacity:.75;box-shadow:0 0 20px #fff0b0;display:none}
+.scene-hill{position:absolute;bottom:0;left:-6%;width:112%;border-radius:50% 50% 0 0}
+.hill-back{height:90px;background:var(--scene-hills);opacity:.62;bottom:23px}
+.hill-front{height:72px;background:linear-gradient(180deg,#81a56e,#426b51)}
+.scene-tree{position:absolute;bottom:33px;font-size:3.5rem;filter:drop-shadow(0 4px 2px #314b352b)}
+.tree-a{left:3%}.tree-b{right:4%;font-size:4rem}
+.scene-landmark{position:absolute;z-index:2;left:50%;bottom:23px;transform:translateX(-50%);font-size:clamp(5rem,12vw,8rem);line-height:1;filter:drop-shadow(0 8px 4px #2e483b42);animation:landmarkFloat 3.2s ease-in-out infinite}
+@keyframes landmarkFloat{0%,100%{transform:translate(-50%,0) rotate(-2deg)}50%{transform:translate(-50%,-7px) rotate(2deg)}}
+.scene-fireflies{position:absolute;right:17%;bottom:34px;z-index:2;color:#fff2bf;font-size:1.05rem;letter-spacing:.5em;text-shadow:0 0 10px #fff3b6}
+.scene-sign{position:absolute;z-index:3;top:17px;left:20px;display:grid;gap:2px;max-width:55%;padding:9px 15px 10px;border:2px solid #ead29c;border-radius:14px 14px 14px 4px;background:#fff8e5e8;box-shadow:0 4px 10px #29463625}
+.scene-sign span{font-family:var(--mono);font-size:.65rem;font-weight:900;letter-spacing:.12em;color:#a57438}
+.scene-sign b{font-family:Georgia,serif;font-size:1.15rem;color:#365b46}.scene-sign small{font-size:.76rem;color:#687967}
+.scene-ground{position:absolute;bottom:0;left:0;right:0;height:23px;background:linear-gradient(90deg,#386b4d,#78a567,#386b4d);z-index:1}
+.level-scene[data-level="3"] .scene-moon,.level-scene[data-level="8"] .scene-moon,.level-scene[data-level="10"] .scene-moon{display:block}
+.level-scene[data-level="3"] .scene-sun,.level-scene[data-level="8"] .scene-sun,.level-scene[data-level="10"] .scene-sun{display:none}
+.level-scene[data-level="3"] .hill-front,.level-scene[data-level="8"] .hill-front{background:linear-gradient(180deg,#65776d,#344d4b)}
+.level-scene[data-level="9"] .scene-landmark{font-size:7rem}
+
+/* мапа зі звивистою стежкою та 10 окремими локаціями */
+.map-shell{position:relative;overflow:hidden;border-radius:25px;border:3px solid #d7c18b;padding:16px 18px 12px;background:linear-gradient(180deg,#dcebc9,#edf0ce 54%,#d5e7c5);box-shadow:inset 0 0 0 2px #fff9db,0 7px 18px #314f3420}
+.map-shell:before,.map-shell:after{content:"";position:absolute;border-radius:50%;background:#79a56b;opacity:.23;pointer-events:none}
+.map-shell:before{width:180px;height:90px;left:-50px;top:40px}.map-shell:after{width:190px;height:100px;right:-45px;bottom:4px}
+.map-heading{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;padding:0 6px 8px;color:#385d45}
+.map-heading span{font-family:Georgia,serif;font-size:1.35rem;font-weight:900}.map-heading small{font-size:.8rem;color:#627861}
+.map-trail{position:absolute;inset:30px 0 10px;width:100%;height:calc(100% - 40px);z-index:0;opacity:.95}
+#qnav.qnav{position:relative;z-index:1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:repeat(2,minmax(92px,auto));gap:10px 6px;padding:5px 0}
+#qnav button{position:relative;width:100%;height:100%;min-height:88px;border:0;border-radius:18px;background:transparent;box-shadow:none;color:#365b45;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:4px;transition:transform .18s,filter .18s}
+#qnav button:hover{transform:translateY(-5px) scale(1.04);filter:drop-shadow(0 5px 4px #294b3340)}
+#qnav button .map-node-art{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:linear-gradient(145deg,#fff7d9,#e1d19e);border:3px solid #b99152;box-shadow:0 4px 0 #9e7746,0 7px 12px #29463327;font-size:1.75rem;line-height:1}
+#qnav button .map-node-label{font-size:.69rem;font-weight:1000;line-height:1.1;max-width:100%;text-align:center;text-wrap:balance;color:#365540}
+#qnav button .map-node-number{position:absolute;top:1px;right:calc(50% - 37px);width:21px;height:21px;border-radius:50%;display:grid;place-items:center;background:#72553a;color:#fff4d8;border:2px solid #ffedbe;font:800 .68rem var(--mono)}
+#qnav button.cur{background:transparent;color:#294e3b}
+#qnav button.cur .map-node-art{background:linear-gradient(145deg,#fff2a8,#e4a94d);border-color:#fff3b4;box-shadow:0 0 0 5px #f6dc8b70,0 5px 0 #ae7a39;transform:scale(1.12)}
+#qnav button.cur .map-node-number{background:#c2732f}
+#qnav button.ans .map-node-art{background:linear-gradient(145deg,#e7f6d9,#9fc889);border-color:#6f9b64}
+#qnav button.ok .map-node-art{background:linear-gradient(145deg,#fff0a3,#e7b348);border-color:#d39b43}
+#qnav button.ok:after{content:"🔑";position:absolute;top:-2px;left:calc(50% + 19px);font-size:.95rem}
+#qnav button.mid .map-node-art{background:linear-gradient(145deg,#fff0c2,#eacb84)}
+#qnav button.bad .map-node-art{background:linear-gradient(145deg,#f8d5c9,#d98c7a)}
+.map-legend{position:relative;z-index:2;display:flex;justify-content:center;gap:18px;flex-wrap:wrap;border-top:1px solid #b9cba7;padding-top:9px;color:#59705a;font-size:.75rem;font-weight:800}
+.map-tools{justify-content:flex-end}
+#scrTask .qhead{margin-top:3px}#scrTask #qtitle{font-family:Georgia,serif;font-size:clamp(1.25rem,3vw,1.8rem)}
+#qbox{background:linear-gradient(145deg,#fffdf5,#f4edda);border:2px solid #e0d1aa;border-radius:23px;padding:clamp(14px,2.8vw,24px);box-shadow:0 5px 0 #e5d8b9,0 10px 18px #39513b10}
+#qbox .opt{background:linear-gradient(145deg,#fffef8,#f4ead4);border:2px solid #d9c69c;border-radius:15px;box-shadow:0 4px 0 #d8c7a4;color:#425a45}
+#qbox .opt:hover{border-color:#6f9c70;background:#f4f8e9}
+#qbox .opt[aria-pressed=true]{background:#e3f1d9;border-color:#5d9766}
+#qbox .chip{border:2px solid #c89d5f;background:linear-gradient(145deg,#fff4d8,#edd49e);color:#614b2f;box-shadow:0 3px 0 #b18a54}
+#qbox .chip.dragging{opacity:.45;transform:scale(.96)}
+#qbox .pool{border:2px dashed #c6a76c;background:#f8edcf;border-radius:18px;min-height:70px}
+#qbox .folders{gap:14px}
+#qbox .folder{position:relative;min-height:150px;border:3px solid #b88c53;border-radius:18px 18px 13px 13px;background:linear-gradient(145deg,#fff3d5,#e8d5ad);box-shadow:0 5px 0 #ae8350;text-align:left;padding:18px 12px 12px}
+#qbox .folder:before{content:"";position:absolute;top:-13px;left:12px;width:70px;height:16px;border:3px solid #b88c53;border-bottom:0;border-radius:10px 10px 0 0;background:#e8d5ad}
+#qbox .folder h3{font-family:Georgia,serif;color:#654d30;font-size:1.1rem}
+#qbox .folder.ready{border-color:#d49d45;background:linear-gradient(145deg,#fff4ca,#e9c47c)}
+#qbox .folder.drop-over{outline:4px dashed #5f9966;outline-offset:3px;transform:translateY(-3px)}
+#qbox .cls-row{background:#fff9e9;border:2px solid #e1d0a7;border-radius:16px}
+#qbox .seg button{background:#fff8e7;border:2px solid #d9c99f;border-radius:10px;color:#47634e}
+#qbox .seg button[aria-pressed=true]{background:#39785c;color:#fff}
+#qbox .tree{background:#e9e7cf;border:2px solid #c4bd91;border-radius:16px;color:#465d49}
+#qbox .pathline{background:#e1efda;border-color:#79a777;color:#365c46}
+#qbox .exp{border:3px solid #bda16e;border-radius:18px;background:#fbf4e3;box-shadow:0 5px 0 #d7c39a}
+#qbox .exp-tool{background:#e9e1c9}
+#qbox .exp-tool button,#qbox .exp-addr button{background:#fff7e6;border:1px solid #ccb98f;color:#465c48}
+#qbox .exp-area{background:linear-gradient(145deg,#fffdf5,#f2eedf);min-height:220px}
+#qbox .item.sel{background:#dcebd2;border:2px solid #79a678;border-radius:12px}
+#qbox .olist{background:#fff7e4;border:2px dashed #d6bf8b;padding:14px 14px 14px 42px;border-radius:16px}
+
+/* скриня та персональний диплом у фіналі */
+.storybook-finale{position:relative;border:3px solid #d6b66f;border-radius:24px;overflow:hidden;background:#314f56;box-shadow:0 8px 0 #c4a66a,0 14px 25px #31463225}
+.storybook-finale svg{display:block;width:100%;height:auto;max-height:310px}
+.finale-caption{position:absolute;left:3%;top:10%;display:grid;gap:4px;max-width:34%;padding:12px 16px;border-radius:14px;background:#fff4d9e8;border:2px solid #e4c887;box-shadow:0 5px 15px #1d352b35}
+.finale-caption span{font-size:1.8rem}.finale-caption b{font-family:Georgia,serif;font-size:1.2rem;color:#385b44}.finale-caption small{color:#68735b}
+.diploma{position:relative;overflow:hidden;text-align:center;padding:24px clamp(16px,4vw,44px) 20px;border:8px double #b88a45;border-radius:20px;background:radial-gradient(circle at 50% 35%,#fffdf1,#f6e8be 78%);box-shadow:inset 0 0 0 5px #fff9df,0 7px 0 #d0b77e;color:#5b4a31}
+.diploma:before,.diploma:after{content:"❧";position:absolute;top:38%;font-size:4rem;color:#c7a15c;opacity:.45}.diploma:before{left:12px}.diploma:after{right:12px;transform:scaleX(-1)}
+.diploma-ornament{color:#bc8b43;letter-spacing:.7em;font-size:1.1rem}
+.diploma-kicker{font-size:.7rem;letter-spacing:.18em;font-weight:1000;color:#9a6f36;margin-top:9px}
+.diploma h2{font-family:Georgia,serif;font-size:clamp(1.5rem,4vw,2.5rem);color:#76502e;margin:8px 0}
+.diploma-intro{margin-top:12px;color:#77664b}
+.diploma-name{font-family:Georgia,serif;font-size:clamp(1.3rem,3.5vw,2rem);font-weight:900;color:#3e694d;border-bottom:2px solid #c8a56c;padding:7px 12px 10px;margin:8px auto 12px;max-width:700px}
+.diploma p{margin:8px auto;max-width:65ch}
+.diploma-bottom{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-top:20px;color:#7c633b}
+.diploma-bottom b{color:#365f48}.diploma-seal{position:absolute;right:8%;bottom:14px;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#d6ac5f;border:4px double #fff0bc;font-size:1.5rem;box-shadow:0 3px 7px #5b432b30}
+.diploma-date{margin-top:16px;font-size:.8rem;color:#8a744f}
+@media(max-width:720px){
+ .storybook-cover{min-height:270px}.cover-copy{left:4%;top:7%;max-width:61%}
+ .cover-title{font-size:clamp(1.9rem,7vw,3.1rem)}.cover-ribbon{font-size:.58rem;padding:6px 9px}
+ .cover-seal{font-size:.68rem;padding:6px 9px;margin-top:10px}.cover-bottom-note{font-size:.75rem;right:4%;bottom:8px}
+ .level-scene{height:165px}.scene-sign{left:10px;top:10px;max-width:62%;padding:7px 10px}
+ .scene-sign b{font-size:.96rem}.scene-sign small{font-size:.65rem}.scene-landmark{font-size:5.3rem;left:68%;bottom:22px}.scene-tree{font-size:2.6rem}
+ .map-shell{padding:10px 8px 8px}#qnav.qnav{grid-template-rows:repeat(2,minmax(94px,auto));gap:8px 2px}
+ #qnav button{min-height:88px}#qnav button .map-node-art{width:42px;height:42px;font-size:1.45rem}
+ #qnav button .map-node-label{font-size:.58rem}#qnav button .map-node-number{right:calc(50% - 30px);width:18px;height:18px;font-size:.6rem}
+ .map-heading span{font-size:1.1rem}.map-heading small{font-size:.7rem}.map-legend{font-size:.62rem;gap:9px}
+ .finale-caption{position:relative;left:auto;top:auto;max-width:none;border:0;border-bottom:2px solid #e4c887;border-radius:0;background:#fff4d9;padding:10px 14px;text-align:center}
+ .diploma:before,.diploma:after{font-size:2.4rem;top:48%}.diploma-seal{position:static;margin:10px auto 0}
+}
+@media(max-width:420px){
+ .cover-copy{max-width:68%}.cover-title{font-size:1.8rem}.cover-subtitle{font-size:.98rem}
+ .cover-seal{display:flex;width:max-content;max-width:100%;font-size:.58rem}
+ .map-node-label{display:none}#qnav.qnav{grid-template-rows:repeat(2,minmax(70px,auto))}#qnav button{min-height:70px}
+}
+@media(prefers-reduced-motion:reduce){.scene-landmark{animation:none}}
+
+.scene-landmark{width:clamp(175px,31vw,280px);height:145px;left:70%;bottom:15px;display:flex;align-items:end;justify-content:center;font-size:unset;line-height:1;filter:drop-shadow(0 8px 4px #2e483b42)}
+.landmark-svg{display:block;width:100%;height:100%;overflow:visible}
+@media(max-width:720px){.scene-landmark{width:175px;height:112px;left:72%;bottom:18px}}
+@media(max-width:420px){.scene-landmark{width:136px;height:95px;left:75%;bottom:20px}}
+
+#qnav button .map-node-treasure{position:absolute;bottom:0;right:calc(50% - 34px);font-size:.83rem;filter:drop-shadow(0 2px 1px #604a2c55)}
+#qnav button.ok .map-node-treasure{opacity:.15}
+#qnav button.ok:after{z-index:3}
+
 </style>
 </head>
 <body>
@@ -411,6 +848,83 @@ h2{color:#38634e}
 <section class="win" id="scrStart" hidden>
   <div class="win-head"><span class="dots"><i></i><i></i><i></i></span>самостійна_робота.exe</div>
   <div class="win-body">
+
+    <div class="storybook-cover" role="img" aria-label="Мальована галявина Чарівного лісу, хатинка та робот Байтик">
+      <svg class="cover-landscape" viewBox="0 0 1200 430" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="coverSky" x2="0" y2="1"><stop stop-color="#4f7890"/><stop offset=".58" stop-color="#e4b27e"/><stop offset="1" stop-color="#f8d99b"/></linearGradient>
+          <linearGradient id="coverHill" x2="0" y2="1"><stop stop-color="#80aa78"/><stop offset="1" stop-color="#315b49"/></linearGradient>
+          <linearGradient id="coverRoof" x2="0" y2="1"><stop stop-color="#c96e57"/><stop offset="1" stop-color="#87484b"/></linearGradient>
+          <linearGradient id="coverRobot" x2="0" y2="1"><stop stop-color="#fff6d8"/><stop offset="1" stop-color="#a6d8c5"/></linearGradient>
+          <filter id="coverGlow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <rect width="1200" height="430" fill="url(#coverSky)"/>
+        <circle cx="980" cy="92" r="54" fill="#ffe6a5" opacity=".9"/>
+        <g fill="#fff1c6" filter="url(#coverGlow)" opacity=".9">
+          <path d="M170 62l7 18 18 7-18 7-7 18-7-18-18-7 18-7z"/><path d="M340 40l5 12 12 5-12 5-5 12-5-12-12-5 12-5z"/>
+          <path d="M820 54l5 12 12 5-12 5-5 12-5-12-12-5 12-5z"/><path d="M1080 190l5 12 12 5-12 5-5 12-5-12-12-5 12-5z"/>
+        </g>
+        <path d="M0 252Q150 155 300 238T610 220T910 225T1200 200V430H0Z" fill="#64896d"/>
+        <path d="M0 292Q190 205 370 285T730 270T1200 268V430H0Z" fill="url(#coverHill)"/>
+        <path d="M0 365Q250 315 485 355T900 340T1200 360V430H0Z" fill="#294f42"/>
+        <path d="M480 430Q570 375 550 340Q520 304 610 273Q700 238 665 205" fill="none" stroke="#f5d89b" stroke-width="42" opacity=".95"/>
+        <path d="M480 430Q570 375 550 340Q520 304 610 273Q700 238 665 205" fill="none" stroke="#c58d64" stroke-width="25" stroke-dasharray="2 9" opacity=".65"/>
+        <!-- leafy trees -->
+        <g stroke="#654d3c" stroke-width="12" stroke-linecap="round">
+          <path d="M90 356V208M190 370V248M1080 365V200M1160 370V245"/>
+        </g>
+        <g fill="#244c43">
+          <circle cx="90" cy="200" r="76"/><circle cx="40" cy="238" r="50"/><circle cx="142" cy="246" r="54"/>
+          <circle cx="190" cy="246" r="60"/><circle cx="1080" cy="190" r="82"/><circle cx="1028" cy="235" r="55"/><circle cx="1140" cy="240" r="58"/>
+          <circle cx="1160" cy="245" r="58"/>
+        </g>
+        <g fill="#4b7854" opacity=".9">
+          <circle cx="67" cy="176" r="32"/><circle cx="128" cy="205" r="36"/><circle cx="174" cy="226" r="30"/>
+          <circle cx="1056" cy="164" r="36"/><circle cx="1110" cy="198" r="40"/>
+        </g>
+        <!-- storybook cottage -->
+        <g transform="translate(760 174)">
+          <path d="M18 104V49L115 0l98 49v55z" fill="#f4dfb4" stroke="#795542" stroke-width="6" stroke-linejoin="round"/>
+          <path d="M0 54L115 -12 230 54" fill="none" stroke="url(#coverRoof)" stroke-width="22" stroke-linejoin="round"/>
+          <path d="M89 104V72q26-42 52 0v32" fill="#775044"/><circle cx="115" cy="83" r="5" fill="#f7cf7c"/>
+          <rect x="34" y="63" width="38" height="36" rx="7" fill="#86b8be" stroke="#795542" stroke-width="5"/>
+          <path d="M53 63v36M34 81h38" stroke="#fff0c9" stroke-width="4"/>
+          <rect x="165" y="63" width="38" height="36" rx="7" fill="#86b8be" stroke="#795542" stroke-width="5"/>
+          <path d="M184 63v36M165 81h38" stroke="#fff0c9" stroke-width="4"/>
+          <path d="M15 105h205" stroke="#795542" stroke-width="7"/>
+          <path d="M193 15l14-29 15 29" fill="#e6bd81" stroke="#795542" stroke-width="4"/>
+        </g>
+        <!-- friendly robot mascot -->
+        <g transform="translate(585 230)">
+          <ellipse cx="62" cy="150" rx="64" ry="15" fill="#183c34" opacity=".28"/>
+          <path d="M61 18V0m-13 1h26" stroke="#f5e4b3" stroke-width="6" stroke-linecap="round"/>
+          <circle cx="61" cy="-1" r="10" fill="#ffd76f" stroke="#815f3e" stroke-width="3"/>
+          <rect x="8" y="20" width="106" height="95" rx="28" fill="url(#coverRobot)" stroke="#315b58" stroke-width="6"/>
+          <rect x="22" y="36" width="78" height="48" rx="17" fill="#264c55"/>
+          <ellipse cx="46" cy="56" rx="8" ry="11" fill="#fff1bd"/><ellipse cx="77" cy="56" rx="8" ry="11" fill="#fff1bd"/>
+          <path d="M46 72q16 15 32 0" stroke="#fff1bd" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <circle cx="28" cy="85" r="7" fill="#ec9a91"/><circle cx="94" cy="85" r="7" fill="#ec9a91"/>
+          <rect x="30" y="115" width="62" height="42" rx="14" fill="#d8b77e" stroke="#315b58" stroke-width="5"/>
+          <path d="M8 55L-10 77M114 55l18-20M42 157l-9 20m46-20 10 20" stroke="#315b58" stroke-width="9" stroke-linecap="round"/>
+          <path d="M-9 76l-8 18m159-57 10-12" stroke="#315b58" stroke-width="7" stroke-linecap="round"/>
+          <path d="M21 131h80" stroke="#f8e8bf" stroke-width="4" stroke-linecap="round"/>
+        </g>
+        <!-- flowers -->
+        <g fill="#f5d88d">
+          <circle cx="300" cy="378" r="8"/><circle cx="315" cy="368" r="7"/><circle cx="328" cy="380" r="7"/>
+          <circle cx="970" cy="376" r="8"/><circle cx="986" cy="365" r="7"/><circle cx="999" cy="378" r="7"/>
+        </g>
+        <g fill="#f1c0c1"><circle cx="302" cy="375" r="4"/><circle cx="970" cy="374" r="4"/></g>
+      </svg>
+      <div class="cover-copy">
+        <span class="cover-ribbon">ІНТЕРАКТИВНА ПРИГОДА · 5 КЛАС</span>
+        <div class="cover-title">Пригоди <strong>Байтика</strong></div>
+        <div class="cover-subtitle">Таємниця загублених файлів</div>
+        <div class="cover-seal">10 чарівних випробувань <span>✦</span> 10 золотих ключів</div>
+      </div>
+      <div class="cover-bottom-note">Вирушай у Чарівний цифровий ліс!</div>
+    </div>
+
     <div class="fairytale-scene" aria-label="Казковий цифровий ліс із замком та роботом Байтиком" role="img">
 <svg viewBox="0 0 1000 310" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 <defs>
@@ -463,8 +977,15 @@ h2{color:#38634e}
 <section class="win" id="scrTask" hidden>
   <div class="win-head"><span class="dots"><i></i><i></i><i></i></span><span id="taskHead">завдання_1</span></div>
   <div class="win-body">
-    <div class="lvl"><div class="lvl-cap"><span>Лад у комп’ютері Байтика</span><span id="lvlTxt">0 з 10 ключів</span></div><div class="lvl-bar"><i id="lvlBar" style="width:0"></i></div></div>
-    <div class="row" style="justify-content:space-between;align-items:flex-start"><div class="qnav" id="qnav" aria-label="Рівні"></div><button class="btn ghost" id="btnTheory">📖 Конспект</button></div>
+    <div class="lvl"><div class="lvl-cap"><span>Мандрівка до Замку знань</span><span id="lvlTxt">0 з 10 ключів</span></div><div class="lvl-bar"><i id="lvlBar" style="width:0"></i></div></div>
+    <div id="levelScene" class="level-scene" aria-hidden="true"></div>
+    <div class="map-shell">
+      <div class="map-heading"><span>🗺️ Мапа пригод</span><small>Обери локацію на шляху до скарбу</small></div>
+      <svg class="map-trail" viewBox="0 0 1000 250" preserveAspectRatio="none" aria-hidden="true"><path d="M95 65 C220 10 345 10 500 65 S790 115 905 65 C975 35 975 205 905 180 C770 145 650 145 500 180 S210 225 95 180" fill="none" stroke="#f7dfa2" stroke-width="24" stroke-linecap="round"/><path d="M95 65 C220 10 345 10 500 65 S790 115 905 65 C975 35 975 205 905 180 C770 145 650 145 500 180 S210 225 95 180" fill="none" stroke="#ba9864" stroke-width="4" stroke-dasharray="4 16" stroke-linecap="round"/></svg>
+      <div class="qnav" id="qnav" aria-label="Десять локацій мапи"></div>
+      <div class="map-legend"><span>🔒 Ще не перевірено</span><span>🔑 Ключ здобуто</span><span>✨ Ти зараз тут</span></div>
+    </div>
+    <div class="row map-tools"><button class="btn ghost" id="btnTheory">📖 Чарівна книга підказок</button></div>
     <div class="say"><span data-bot=""></span><p class="bubble" id="qstory"></p></div>
     <div class="qhead"><span class="eyebrow" id="qnum"></span><span class="pts" id="qpts"></span></div>
     <div class="row" style="flex-wrap:nowrap;align-items:center"><span class="lvl-icon" id="lvlIcon" aria-hidden="true"></span><h2 id="qtitle"></h2></div>
@@ -556,12 +1077,19 @@ const TASKS=[
    const pool=el('div',{class:'pool'});const fs=el('div',{class:'folders'});box.append(el('p',{class:'eyebrow'},'Файли'),pool,fs);
    const order=S.ord[id]||(S.ord[id]=shuffle(T.files));
    function draw(){pool.innerHTML='';fs.innerHTML='';
-     order.forEach(([nm])=>{if(a[nm]!=null)return;const c=el('button',{class:'chip'},nm);pressBtn(c,pick===nm);c.onclick=()=>{pick=pick===nm?null:nm;draw();};pool.append(c);});
+     order.forEach(([nm])=>{if(a[nm]!=null)return;const c=el('button',{class:'chip'},nm);c.draggable=true;pressBtn(c,pick===nm);
+     c.ondragstart=e=>{pick=nm;e.dataTransfer.setData('text/plain',nm);e.dataTransfer.effectAllowed='move';c.classList.add('dragging');};
+     c.ondragend=()=>c.classList.remove('dragging');
+     c.onclick=()=>{pick=pick===nm?null:nm;draw();};pool.append(c);});
      if(!pool.children.length)pool.append(el('span',{class:'hint'},'Усі файли розкладено ✓'));
      T.folders.forEach((f,fi)=>{const d=el('div',{class:'folder'+(pick?' ready':''),role:'button',tabindex:'0'});d.append(el('h3',{},'📁 '+f));
        const inn=el('div',{class:'in'});order.forEach(([nm])=>{if(a[nm]!==fi)return;const c=el('button',{class:'chip'},nm);
          c.onclick=e=>{e.stopPropagation();delete a[nm];pick=null;draw();nav();};inn.append(c);});
-       d.append(inn);const put=()=>{if(!pick)return;a[pick]=fi;pick=null;draw();nav();};d.onclick=put;d.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();put();}};fs.append(d);});}
+       d.append(inn);const put=()=>{if(!pick)return;a[pick]=fi;pick=null;draw();nav();};
+     d.ondragover=e=>{if(pick){e.preventDefault();e.dataTransfer.dropEffect='move';d.classList.add('drop-over');}};
+     d.ondragleave=()=>d.classList.remove('drop-over');
+     d.ondrop=e=>{e.preventDefault();d.classList.remove('drop-over');const nm=e.dataTransfer.getData('text/plain')||pick;if(nm&&T.files.some(x=>x[0]===nm)&&a[nm]==null){a[nm]=fi;pick=null;draw();nav();}};
+     d.onclick=put;d.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();put();}};fs.append(d);});}
    draw();},
  answered(id){return !!S.ans[id]&&Object.keys(S.ans[id]).length===this.files.length;},
  score(id){const a=S.ans[id]||{};return this.files.filter(([nm,f])=>a[nm]===f).length/this.files.length;},
@@ -687,6 +1215,40 @@ $$('[data-bot]').forEach(x=>{x.outerHTML=BOT(x.dataset.bot==='big');});
 const STORY=["Почнімо з головного. Ти знаєш, що таке <b>файл</b>?", "Мої файли загубили ярлички! Допоможи впізнати, що в кожному з них.", "Ой, тут <b>файл-хитрун</b>! Він каже, що він пісня… Не вір назві, дивись на розширення.", "Час прибирати! Розклади файли по моїх папках.", "Мені треба знайти домашнє завдання з математики. Підкажи дорогу: склади <b>шлях</b> до файлу!", "Хтось вигадав файлам дивні імена. Знайди ті, яких комп’ютер <b>не дозволить</b>.", "Друзі просять мене про допомогу. Що зробити з файлом у кожній ситуації?", "Це мої чарівні клавіші! Пригадай, що робить кожна.", "Я хочу скопіювати файл, але переплутав кроки. Розстав їх по порядку.", "Останній рівень! Ось мій справжній <b>Провідник</b>. Створи папку «Фото» і видали «Непотрібне.txt»."];
 const ICONS=['📄','🏷️','🎭','🧹','🧭','🤪','🤝','⌨️','📋','🗂️'];
 const LVC=['var(--sys-bg)','var(--app-bg)','var(--ins-bg)','var(--ok-bg)','var(--sys-bg)','var(--bad-bg)','var(--app-bg)','var(--ins-bg)','var(--ok-bg)','var(--mid-bg)'];
+const MAP_ICONS=['🏡','📚','🪨','🧺','🧭','🍄','🏘️','⌨️','📜','🏰'];
+const SCENES=[
+ {place:'Сонячна галявина',line:'Тут починається пригода — знайди першу підказку.',icon:'🏡',sky:'#a9d8dd',hills:'#77ad79',glow:'#ffe4a1',props:'🌳　🌼　🦋'},
+ {place:'Чарівна бібліотека',line:'Між книжковими стелажами заховалися ярлички.',icon:'📚',sky:'#b6b6d7',hills:'#6f907f',glow:'#ffe4a1',props:'📖　✨　🕯️'},
+ {place:'Печера файлів-хитрунів',line:'У темряві печери назва може ввести в оману.',icon:'🪨',sky:'#657b91',hills:'#405d58',glow:'#e6d4a3',props:'💎　🦇　🔦'},
+ {place:'Майстерня порядку',line:'Розклади файли у правильні чарівні скриньки.',icon:'🧺',sky:'#d6b78e',hills:'#78966c',glow:'#ffe0a0',props:'🧵　🌻　🪵'},
+ {place:'Перехрестя стежок',line:'Обери правильний шлях до загубленого документа.',icon:'🧭',sky:'#9cc8c6',hills:'#5b8b74',glow:'#fff0ae',props:'🪧　🌲　🦉'},
+ {place:'Грибна галявина знаків',line:'Остерігайся заборонених символів!',icon:'🍄',sky:'#e6b1a2',hills:'#70936c',glow:'#ffe7ac',props:'🍄　🌱　✨'},
+ {place:'Селище добрих справ',line:'Допоможи мешканцям правильно впорядкувати файли.',icon:'🏘️',sky:'#e8c69a',hills:'#7c9d70',glow:'#ffe5a2',props:'🏠　🌷　🐿️'},
+ {place:'Палац чарівних клавіш',line:'Кожна клавіша має свою суперсилу.',icon:'⌨️',sky:'#aeb9dc',hills:'#657c91',glow:'#fff0b2',props:'⚡　🔤　⭐'},
+ {place:'Міст копіювання',line:'Пройди чотири кроки, щоб нічого не загубити.',icon:'📜',sky:'#d4bb9c',hills:'#678b75',glow:'#ffe5a5',props:'📜　🪶　🔑'},
+ {place:'Замок Провідника',line:'Останнє випробування — наведи лад у королівстві файлів.',icon:'🏰',sky:'#687e9c',hills:'#456653',glow:'#ffdf95',props:'🗝️　👑　✨'}
+];
+
+const SCENE_ART=[
+`<svg class="landmark-svg" viewBox="0 0 260 160" aria-hidden="true"><ellipse cx="130" cy="149" rx="105" ry="8" fill="#294b3a" opacity=".2"/><path d="M49 83L130 20l81 63v62H49z" fill="#f7e4b9" stroke="#72543b" stroke-width="5" stroke-linejoin="round"/><path d="M35 86L130 10l96 76" fill="none" stroke="#8d4e4d" stroke-width="16" stroke-linejoin="round"/><rect x="111" y="100" width="38" height="45" rx="18" fill="#865943" stroke="#674532" stroke-width="4"/><circle cx="140" cy="123" r="3" fill="#f4d58a"/><rect x="66" y="91" width="30" height="29" rx="5" fill="#83b9bd" stroke="#72543b" stroke-width="4"/><path d="M81 91v29M66 105h30" stroke="#fff1c8" stroke-width="3"/><path d="M172 91h25v29h-25z" fill="#83b9bd" stroke="#72543b" stroke-width="4"/><path d="M184 91v29m-12-15h25" stroke="#fff1c8" stroke-width="3"/><path d="M176 19l12-24 12 24" fill="#d9b47a" stroke="#72543b" stroke-width="4"/></svg>`,
+`<svg class="landmark-svg" viewBox="0 0 260 160" aria-hidden="true"><ellipse cx="130" cy="149" rx="110" ry="8" fill="#294b3a" opacity=".2"/><rect x="38" y="16" width="184" height="127" rx="9" fill="#795a45" stroke="#503e35" stroke-width="6"/><rect x="49" y="27" width="162" height="105" rx="4" fill="#f7e5bd"/><path d="M49 58h162M49 98h162" stroke="#795a45" stroke-width="6"/><g stroke="#695140" stroke-width="2"><rect x="59" y="33" width="18" height="24" rx="3" fill="#ba6c59"/><rect x="81" y="30" width="15" height="27" rx="3" fill="#6d91a0"/><rect x="101" y="35" width="22" height="22" rx="3" fill="#d5a64e"/><rect x="129" y="29" width="16" height="28" rx="3" fill="#78996d"/><rect x="151" y="34" width="21" height="23" rx="3" fill="#a981b4"/><rect x="178" y="31" width="22" height="26" rx="3" fill="#c86f55"/><rect x="60" y="65" width="25" height="30" rx="3" fill="#d5a64e"/><rect x="90" y="65" width="17" height="30" rx="3" fill="#a981b4"/><rect x="113" y="65" width="25" height="30" rx="3" fill="#6d91a0"/><rect x="145" y="65" width="18" height="30" rx="3" fill="#c86f55"/><rect x="170" y="65" width="28" height="30" rx="3" fill="#78996d"/></g><path d="M27 145h206" stroke="#503e35" stroke-width="8" stroke-linecap="round"/><path d="M130 4l8 11 13 2-10 9 2 13-13-6-12 6 2-13-10-9 13-2z" fill="#f6d778"/></svg>`,
+`<svg class="landmark-svg" viewBox="0 0 260 160" aria-hidden="true"><ellipse cx="130" cy="150" rx="108" ry="8" fill="#203d3d" opacity=".25"/><path d="M30 145V92Q30 18 130 10Q230 18 230 92V145Z" fill="#57645e" stroke="#374a47" stroke-width="7"/><path d="M54 145V98Q54 37 130 30Q206 37 206 98V145Z" fill="#243d48"/><path d="M70 145l17-43h86l17 43" fill="#192e3d"/><path d="M88 111l13-20 13 20-13 20z" fill="#63c9c4" stroke="#bce8d7" stroke-width="3"/><path d="M147 68l12-20 12 20-12 20z" fill="#eccb70" stroke="#fff0bc" stroke-width="3"/><circle cx="130" cy="80" r="7" fill="#f6e39b"/><path d="M34 139l-12-10m204 10 12-10" stroke="#b4a58a" stroke-width="8" stroke-linecap="round"/></svg>`,
+`<svg class="landmark-svg" viewBox="0 0 260 160" aria-hidden="true"><ellipse cx="130" cy="149" rx="108" ry="8" fill="#294b3a" opacity=".2"/><path d="M37 74h186l-14 70H51z" fill="#b87943" stroke="#754b31" stroke-width="6" stroke-linejoin="round"/><path d="M45 78l10 62m28-62 5 64m33-64v64m34-64-5 64m33-64-10 64" stroke="#e5b873" stroke-width="5"/><path d="M48 72Q130 10 212 72" fill="#d59b4e" stroke="#805637" stroke-width="6"/><path d="M70 64l28-35 18 28 21-39 35 47" fill="#fff1cf" stroke="#a66b41" stroke-width="4"/><path d="M88 30l10-15 12 17m28-14 12-15 13 22" stroke="#6f8d71" stroke-width="5" fill="none"/><rect x="110" y="86" width="42" height="42" rx="6" fill="#e8c77e" stroke="#805637" stroke-width="4"/><path d="M130 87v41m-20-20h42" stroke="#a06d3d" stroke-width="3"/></svg>`,
+`<svg class="landmark-svg" viewBox="0 0 260 160" aria-hidden="true"><ellipse cx="130" cy="149" rx="110" ry="8" fill="#294b3a" opacity=".2"/><path d="M127 147V22" stroke="#70543a" stroke-width="13" stroke-linecap="round"/><path d="M130 38L54 20v39l76-9z" fill="#d6ad63" stroke="#775739" stroke-width="4"/><path d="M130 72l78-18v38l-78-8z" fill="#9ab4a0" stroke="#775739" stroke-width="4"/><path d="M130 103l-65-12v36l65-4z" fill="#d58f69" stroke="#775739" stroke-width="4"/><path d="M72 39h39m34 33h42m-99 36h28" stroke="#fff2cf" stroke-width="4" stroke-linecap="round"/><path d="M120 20l10-17 10 17" fill="#f4d47e" stroke="#775739" stroke-width="3"/></svg>`,
+`<svg class="landmark-svg" viewBox="0 0 260 160" aria-hidden="true"><ellipse cx="130" cy="150" rx="110" ry="8" fill="#294b3a" opacity=".2"/><path d="M105 145Q103 98 93 79Q60 57 73 34Q83 9 130 12Q177 9 187 34Q200 57 167 79Q157 98 155 145Z" fill="#f3e4bf" stroke="#8a5944" stroke-width="5"/><path d="M68 43Q68 4 130 6Q192 4 192 43Q181 65 130 63Q79 65 68 43Z" fill="#d55e58" stroke="#8a5944" stroke-width="5"/><g fill="#fff0c9"><circle cx="91" cy="34" r="6"/><circle cx="122" cy="19" r="6"/><circle cx="155" cy="28" r="6"/><circle cx="177" cy="43" r="5"/></g><path d="M37 113l10-18 10 18m-10-5v25" fill="none" stroke="#648e63" stroke-width="5" stroke-linecap="round"/><path d="M205 123l8-15 8 15m-8-3v20" fill="none" stroke="#648e63" stroke-width="5" stroke-linecap="round"/><text x="130" y="118" text-anchor="middle" font-size="25" fill="#86523b" font-weight="bold">?!</text></svg>`,
+`<svg class="landmark-svg" viewBox="0 0 260 160" aria-hidden="true"><ellipse cx="130" cy="150" rx="110" ry="8" fill="#294b3a" opacity=".2"/><g stroke="#73533d" stroke-width="4"><path d="M24 85L75 45l51 40v57H24z" fill="#f1d6a9"/><path d="M12 84L75 35l63 49" fill="none" stroke="#9d5d50" stroke-width="12"/><rect x="65" y="103" width="23" height="39" rx="10" fill="#88624a"/><path d="M150 93l41-33 43 33v48h-84z" fill="#e6c58e"/><path d="M140 92l51-44 53 44" fill="none" stroke="#6b7e91" stroke-width="12"/><rect x="176" y="107" width="20" height="34" rx="9" fill="#795642"/></g><path d="M36 142h194" stroke="#886e48" stroke-width="5"/><path d="M22 52q6-20 26-14q13-21 32-4" stroke="#4c8157" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="38" cy="34" r="10" fill="#f1d47f"/><circle cx="59" cy="24" r="8" fill="#f2c1bd"/></svg>`,
+`<svg class="landmark-svg" viewBox="0 0 260 160" aria-hidden="true"><ellipse cx="130" cy="150" rx="110" ry="8" fill="#294b3a" opacity=".2"/><path d="M38 54h184v86H38z" fill="#4a6575" stroke="#394c5d" stroke-width="6" rx="12"/><path d="M50 66h160v63H50z" fill="#dfe5d5"/><g fill="#e0b96d" stroke="#80623d" stroke-width="3"><rect x="58" y="75" width="24" height="19" rx="4"/><rect x="88" y="75" width="24" height="19" rx="4"/><rect x="118" y="75" width="24" height="19" rx="4"/><rect x="148" y="75" width="24" height="19" rx="4"/><rect x="178" y="75" width="24" height="19" rx="4"/><rect x="67" y="101" width="24" height="19" rx="4"/><rect x="97" y="101" width="24" height="19" rx="4"/><rect x="127" y="101" width="24" height="19" rx="4"/><rect x="157" y="101" width="24" height="19" rx="4"/></g><path d="M75 52V26h110v26" fill="#fff0c9" stroke="#394c5d" stroke-width="6"/><path d="M98 27V10h64v17" fill="#a0c5bf" stroke="#394c5d" stroke-width="5"/><path d="M130 3l8 10-8 10-8-10z" fill="#f7d77b"/></svg>`,
+`<svg class="landmark-svg" viewBox="0 0 260 160" aria-hidden="true"><ellipse cx="130" cy="150" rx="110" ry="8" fill="#294b3a" opacity=".2"/><path d="M24 115Q60 72 100 115T180 115T240 115" fill="none" stroke="#9e7049" stroke-width="18" stroke-linecap="round"/><path d="M24 115Q60 72 100 115T180 115T240 115" fill="none" stroke="#edcb89" stroke-width="5" stroke-dasharray="5 10"/><path d="M81 96V42h98v54" fill="#fff2d1" stroke="#956c49" stroke-width="5"/><path d="M69 45l61-31 61 31" fill="#c98757" stroke="#956c49" stroke-width="5"/><path d="M130 14v82" stroke="#956c49" stroke-width="4"/><path d="M102 63h56v30h-56z" fill="#fff" stroke="#a98b59" stroke-width="3"/><text x="130" y="84" text-anchor="middle" font-size="19" font-weight="bold" fill="#62836c">C</text><path d="M35 137q30-18 60 0m70 0q30-18 60 0" stroke="#7da3a0" stroke-width="5" fill="none"/></svg>`,
+`<svg class="landmark-svg" viewBox="0 0 260 160" aria-hidden="true"><ellipse cx="130" cy="150" rx="110" ry="8" fill="#294b3a" opacity=".2"/><path d="M40 142V63h48V34h35V14h25v20h35v29h37v79z" fill="#ead4ad" stroke="#765b4a" stroke-width="5"/><path d="M28 64l36-32 36 32M116 36l19-27 20 27M170 64l32-32 33 32" fill="#a75d59" stroke="#765b4a" stroke-width="5"/><path d="M104 142v-49q26-36 52 0v49" fill="#78516a" stroke="#765b4a" stroke-width="4"/><rect x="59" y="83" width="22" height="25" rx="4" fill="#8fbec0"/><rect x="181" y="83" width="22" height="25" rx="4" fill="#8fbec0"/><path d="M70 83v25m-11-12h22m111-13v25m-11-13h22" stroke="#fff2ce" stroke-width="3"/><path d="M65 28V7m0 0l28 8-28 8m135 4V8m0 0l28 8-28 8" stroke="#765b4a" stroke-width="4" fill="#d9b36d"/></svg>`
+];
+
+function paintLevel(i){
+ const s=SCENES[i],elScene=$('#levelScene');if(!elScene)return;
+ elScene.dataset.level=String(i+1);
+ elScene.style.setProperty('--scene-sky',s.sky);elScene.style.setProperty('--scene-hills',s.hills);elScene.style.setProperty('--scene-glow',s.glow);
+ elScene.innerHTML='<div class="scene-sun"></div><div class="scene-moon"></div><div class="scene-hill hill-back"></div><div class="scene-hill hill-front"></div><div class="scene-tree tree-a">🌲</div><div class="scene-tree tree-b">🌳</div><div class="scene-landmark">'+SCENE_ART[i]+'</div><div class="scene-fireflies">'+s.props+'</div><div class="scene-sign"><span>ЛОКАЦІЯ '+String(i+1).padStart(2,'0')+'</span><b>'+s.place+'</b><small>'+s.line+'</small></div><div class="scene-ground"></div>';
+}
+
 (function(){const f=$('.floaters');['✨','🍄','🌿','🧚','🔑','🌸','⭐','🍃','🦋','🏰'].forEach((e,i)=>{const x=el('span',{},e);x.style.left=(i*10+Math.random()*6)+'%';x.style.animationDuration=(18+Math.random()*14)+'s';x.style.animationDelay=(-Math.random()*30)+'s';f.append(x);});})();
 function confetti(n){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const c=el('canvas',{id:'confetti'});document.body.append(c);const x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;
   const cols=['#2f6fe4','#e0711d','#1f9d55','#8a3fd1','#ffc83d','#d23b3b'];const P=Array.from({length:n},()=>({x:Math.random()*c.width,y:-20-Math.random()*c.height*.5,vx:(Math.random()-.5)*3,vy:2+Math.random()*3,r:Math.random()*6.28,vr:(Math.random()-.5)*.3,w:6+Math.random()*6,h:8+Math.random()*8,c:cols[Math.floor(Math.random()*6)]}));
@@ -698,7 +1260,10 @@ S.chk={};
 /* ---------- navigation ---------- */
 function nav(){const q=$('#qnav');q.innerHTML='';const ch=Object.keys(S.chk).length;const keys=Object.values(S.chk).filter(f=>f>=1).length;
   $('#lvlBar').style.width=(ch/TASKS.length*100)+'%';$('#lvlTxt').textContent='Перевірено рівнів: '+ch+' з '+TASKS.length;$('#tbKeys').textContent='🔑 '+keys+'/'+TASKS.length;
-  TASKS.forEach((t,i)=>{const b=el('button',{'aria-label':'Рівень '+(i+1)+': '+LEVELS[i],title:LEVELS[i]},String(i+1));const f=S.chk[i];
+  TASKS.forEach((t,i)=>{const b=el('button',{'aria-label':'Локація '+(i+1)+': '+LEVELS[i],title:LEVELS[i]});
+ const col=[1,2,3,4,5,5,4,3,2,1][i],row=i<5?1:2;b.style.gridColumn=String(col);b.style.gridRow=String(row);
+ b.innerHTML='<span class="map-node-art">'+MAP_ICONS[i]+'</span><span class="map-node-label">'+SCENES[i].place+'</span><span class="map-node-number">'+(i+1)+'</span><span class="map-node-treasure">🧰</span>';
+ const f=S.chk[i];
   if(f!=null)b.classList.add(f>=1?'ok':f>0?'mid':'bad');else if(t.answered(i))b.classList.add('ans');
   if(i===S.cur){b.classList.add('cur');b.setAttribute('aria-current','step');}b.onclick=()=>go(i);q.append(b);});
   const c=$('#btnCheck');if(c){const f=S.chk[S.cur];c.hidden=f!=null;c.disabled=!TASKS[S.cur].answered(S.cur);$('#chkHint').hidden=f!=null||!c.disabled;}}
@@ -709,7 +1274,7 @@ function showVerdict(i,anim){const f=S.chk[i];const v=$('#verdict');if(f==null){
   v.querySelector('.vs').textContent=f>=1?'':'Правильна відповідь: '+SOL[i];if(anim)v.classList.add('pop');}
 function check(){const i=S.cur,t=TASKS[i];if(!t.answered(i)||S.chk[i]!=null)return;closeMenu();const f=t.score(i);S.chk[i]=f;
   if(f>=1){toast('Ключ знайдено! Рівень '+(i+1)+' пройдено');}showVerdict(i,true);nav();$('#verdict').scrollIntoView({behavior:'smooth',block:'nearest'});}
-function go(i){closeMenu();S.cur=i;const t=TASKS[i];$('#taskHead').textContent='рівень_'+(i+1);
+function go(i){closeMenu();S.cur=i;const t=TASKS[i];paintLevel(i);$('#taskHead').textContent='рівень_'+(i+1);
   $('#qnum').textContent='Рівень '+(i+1)+' з '+TASKS.length+' · '+LEVELS[i];$('#qstory').innerHTML=STORY[i];const qs=$('#qstory');qs.style.animation='none';qs.offsetWidth;qs.style.animation='';$('#scrTask').style.setProperty('--lv',LVC[i]);$('#lvlIcon').textContent=ICONS[i];const li=$('#lvlIcon');li.style.animation='none';li.offsetWidth;li.style.animation='';$('#qpts').textContent=t.pts+' '+(t.pts===1?'бал':'бали');
   $('#qtitle').textContent=t.title;$('#qhint').textContent=t.hint;const box=$('#qbox');box.innerHTML='';box.classList.remove('slide');box.offsetWidth;box.classList.add('slide');t.render(box,i);showVerdict(i,false);
   $('#btnPrev').disabled=i===0;$('#btnNext').hidden=i===TASKS.length-1;nav();window.scrollTo({top:0,behavior:'smooth'});}
@@ -733,11 +1298,40 @@ function finish(){S.done=true;S.t1=Date.now();clearInterval(timer);tick();
   const pts=Math.round(rows.reduce((s,r)=>s+r.pts,0)*10)/10;const grade=Math.max(1,Math.round(pts/MAX*12));const sec=Math.round((S.t1-S.t0)/1000);
   const R={name:S.name,cls:S.cls,grade,pts,max:MAX,sec,rows};
   const b=$('#resBody');b.innerHTML='';
-  b.append(el('span',{class:'eyebrow'},'Гру завершено'));
+   const finale=el('div',{class:'storybook-finale'});
+   finale.innerHTML=`<svg viewBox="0 0 1100 300" role="img" aria-label="Замок знань і відкрита скриня зі скарбами" xmlns="http://www.w3.org/2000/svg">
+     <defs><linearGradient id="finalSky" x2="0" y2="1"><stop stop-color="#324c68"/><stop offset="1" stop-color="#8d7890"/></linearGradient><linearGradient id="finalGold" x2="0" y2="1"><stop stop-color="#ffe99b"/><stop offset="1" stop-color="#d58a35"/></linearGradient></defs>
+     <rect width="1100" height="300" fill="url(#finalSky)"/><circle cx="870" cy="58" r="36" fill="#ffe5a0"/>
+     <g fill="#fff0c7"><path d="M160 40l5 13 13 5-13 5-5 13-5-13-13-5 13-5z"/><path d="M370 70l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/><path d="M1010 120l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/></g>
+     <path d="M0 220Q160 155 330 220T680 205T1100 210V300H0Z" fill="#466b59"/><path d="M0 255Q240 195 440 255T850 240T1100 255V300H0Z" fill="#294f43"/>
+     <g transform="translate(410 34)" stroke="#694e55" stroke-width="5">
+       <path d="M40 190V85h58V50h45v35h58v105z" fill="#ecd6ad"/><path d="M23 85V20h45v65M173 85V20h45v65" fill="#e4c392"/><path d="M18 22l28-28 28 28M168 22l28-28 28 28" fill="#ab6464"/>
+       <path d="M89 190v-58q31-44 62 0v58" fill="#795467"/><rect x="107" y="93" width="26" height="32" rx="12" fill="#9bc2bf"/><path d="M0 190h250" fill="none"/>
+     </g>
+     <g transform="translate(760 184)">
+       <ellipse cx="100" cy="76" rx="108" ry="17" fill="#172f35" opacity=".35"/>
+       <path d="M15 5h170v66H15z" fill="#9d573a" stroke="#553c36" stroke-width="7"/>
+       <path d="M15 8Q100 -72 185 8" fill="#bf7844" stroke="#553c36" stroke-width="8"/>
+       <path d="M28 9Q100 -50 172 9" fill="none" stroke="#f1c36b" stroke-width="8"/>
+       <path d="M15 36h170" stroke="#e9bb68" stroke-width="10"/><rect x="79" y="29" width="42" height="40" rx="8" fill="url(#finalGold)" stroke="#81552f" stroke-width="5"/>
+       <path d="M100 37v22m-9-11h18" stroke="#8a542d" stroke-width="5"/>
+       <g fill="#ffe88d"><path d="M100 -20l8 19 20 1-15 12 5 19-18-11-18 11 5-19L72-19l20-1z"/><circle cx="34" cy="-14" r="8"/><circle cx="169" cy="-18" r="7"/></g>
+     </g>
+     <text x="550" y="276" text-anchor="middle" fill="#fff0c8" font-family="Georgia,serif" font-size="22" letter-spacing="5">ЗАМОК ЗНАНЬ ВІДЧИНЕНО!</text>
+   </svg><div class="finale-caption"><span>🏰</span><b>Ти дістався Замку знань!</b><small>Скарб знайдено, а пригода завершена.</small></div>`;
+   b.append(finale);
+   const diploma=el('div',{class:'diploma'});
+   diploma.innerHTML='<div class="diploma-ornament">✦ ✧ ✦</div><div class="diploma-kicker">ЧАРІВНИЙ ЦИФРОВИЙ ЛІС · 5 КЛАС</div><h2>Диплом шукача скарбів</h2><p class="diploma-intro">Цим дипломом нагороджується</p><div class="diploma-name"></div><p>за сміливість, уважність і успішну мандрівку стежками файлів та папок.</p><div class="diploma-bottom"><span>Клас: <b class="diploma-class"></b></span><span>Оцінка: <b class="diploma-grade"></b> / 12</span></div><div class="diploma-seal">🔑</div><div class="diploma-date"></div>';
+   diploma.querySelector('.diploma-name').textContent=S.name;
+   diploma.querySelector('.diploma-class').textContent=S.cls;
+   diploma.querySelector('.diploma-grade').textContent=String(grade);
+   diploma.querySelector('.diploma-date').textContent=new Date().toLocaleDateString('uk-UA');
+   b.append(diploma);
+   b.append(el('span',{class:'eyebrow'},'Гру завершено'));
   const stars=grade>=10?3:grade>=7?2:1;const mood=grade>=7?'happy':grade>=4?'ok':'sad';
   const msg=grade>=10?'Ура! Мій комп’ютер сяє чистотою! Ти справжній майстер файлів і папок!':grade>=7?'Дякую! Майже весь безлад зник. Ще трішки, і будеш майстром!':grade>=4?'Дякую за допомогу! Частину безладу ми прибрали. Перечитай конспект, і наступного разу вийде ще краще.':'Не засмучуйся! Безлад ще залишився, але разом ми впораємося. Перечитай конспект і спробуй згадати головне.';
   const sy=el('div',{class:'say'});sy.innerHTML=BOT(true,mood);sy.append(el('p',{class:'bubble'},msg));b.append(sy);
-  const stE=el('div',{class:'stars','aria-label':'Зірок: '+stars+' з 3'});stE.innerHTML=[0,1,2].map(k=>'<span style="animation-delay:'+(0.3+k*0.35)+'s"'+(k<stars?'':' class="off"')+'>⭐</span>').join('');b.append(stE);if(grade>=7)confetti(grade>=10?160:80);
+  const stE=el('div',{class:'stars','aria-label':'Зірок: '+stars+' з 3'});stE.innerHTML=[0,1,2].map(k=>'<span style="animation-delay:'+(0.3+k*0.35)+'s"'+(k<stars?'':' class="off"')+'>⭐</span>').join('');b.append(stE);confetti(grade>=10?180:grade>=7?120:70);
   const g=el('div',{class:'grade'});g.append(el('div',{class:'gbig'},String(grade)));
   const gi=el('div',{});gi.append(el('h2',{},S.name+', '+S.cls));
   gi.append(el('p',{class:'lead'},'Оцінка: '+grade+' з 12 · Бали: '+String(pts).replace('.',',')+' з '+MAX+' · Час: '+fmt(sec)));g.append(gi);b.append(g);
